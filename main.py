@@ -13,6 +13,11 @@ ENTRY = (
     "stuck on this line since Tuesday."
 )
 
+# The sealed scorer only accepts 1-199 characters of non-blank UTF-8 text.
+# Refuse to write anything outside the gate rather than submit an invalid line.
+assert 1 <= len(ENTRY) <= 199, "entry outside the 1-199 char gate"
+assert ENTRY.strip(), "entry must not be only whitespace"
+
 
 def main() -> None:
     out_dir = os.environ.get("OUTPUT_DIR", "/output")
